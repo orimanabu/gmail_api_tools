@@ -4,24 +4,15 @@
 import re
 import certifi
 import httplib2
-import gdata.gauth
-import gdata.spreadsheets.client
 from oauth2client.client import flow_from_clientsecrets
 from oauth2client.file import Storage
-from oauth2client.tools import run
-from oauth2client.tools import run_flow
-import oauth2client.tools
 from apiclient.discovery import build
 from pprint import pprint
 import base64
 
-gmail = {}
-
 def auth():
-    #scope = 'https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile https://docs.google.com/feeds/ https://docs.googleusercontent.com/ https://spreadsheets.google.com/feeds/'
     scope = 'https://www.googleapis.com/auth/gmail.readonly'
     redirect_uri = 'urn:ietf:wg:oauth:2.0:oob'
-    #redirect_uri = "http://localhost/oauth2callback"
     user_agent = 'orimanabu'
     secret_file = 'client_secret.json'
     cred_file = 'cred.json'
@@ -30,7 +21,6 @@ def auth():
     storage = Storage(cred_file)
     cred = storage.get()
     if cred is None or cred.invalid:
-        #cred = run_flow(flow, storage, None)
         auth_uri = flow.step1_get_authorize_url()
         print 'Please go to this URL and get an authentication code:'
         print auth_uri
